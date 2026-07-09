@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchEl = document.getElementById("doc-search");
   const categoryEl = document.getElementById("doc-category");
   const yearEl = document.getElementById("doc-year");
+  const paginationEl = document.getElementById("doc-pagination");
+
+  const PAGE_SIZE = 6;
+  let currentPage = 1;
 
   // Populate category filter
   CATEGORIES.forEach((cat) => {
@@ -53,12 +57,55 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .sort((a, b) => sortKey(b) - sortKey(a));
 
-    countEl.textContent = `Showing ${filtered.length} of ${data.length} ${label.toLowerCase()}${data.length === 1 ? "" : "s"}`;
-
     if (filtered.length === 0) {
+      countEl.textContent = `Showing 0 of ${data.length} ${label.toLowerCase()}${data.length === 1 ? "" : "s"}`;
       listEl.innerHTML = `<div class="no-results">No ${label.toLowerCase()}s match your search. Try a different keyword or clear the filters.</div>`;
+      if (paginationEl) paginationEl.innerHTML = "";
       return;
     }
+
+    if (isOrdinance && paginationEl) {
+      const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+      countEl.textContent = `Showing ${start + 1}–${start + pageItems.length} of ${filtered.length} ${label.toLowerCase()}${filtered.length === 1 ? "" : "s"}`;
+
+      listEl.innerHTML = `
+      <div class="table-responsive">
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Ordinance No.</th>
+              <th>Title</th>
+              <th>Date Enacted</th>
+              <th>Document</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${pageItems
+              .map(
+                (d) => `
+            <tr>
+              <td class="doc-table-number">${d.number}</td>
+              <td><a href="${detailPage}?id=${d.id}">${d.title}</a></td>
+              <td class="doc-table-date">${d.dateApproved ? formatDate(d.dateApproved) : "Series " + d.series}</td>
+              <td class="doc-table-doc">${d.pdf ? `<a href="${d.pdf}" target="_blank" rel="noopener">View PDF ↗</a>` : `<a href="${detailPage}?id=${d.id}">View →</a>`}</td>
+            </tr>`
+              )
+              .join("")}
+          </tbody>
+        </table>
+      </div>`;
+
+      renderPagination(totalPages);
+      return;
+    }
+
+    countEl.textContent = `Showing ${filtered.length} of ${data.length} ${label.toLowerCase()}${data.length === 1 ? "" : "s"}`;
 
     listEl.innerHTML = filtered
       .map(
@@ -83,6 +130,39 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   }
 
+  function renderPagination(totalPages) {
+    if (totalPages <= 1) {
+      paginationEl.innerHTML = "";
+      return;
+    }
+
+    let html = "";
+    html += currentPage > 1
+      ? `<a href="#" data-page="${currentPage - 1}">←</a>`
+      : `<span style="opacity:.4;">←</span>`;
+
+    for (let p = 1; p <= totalPages; p++) {
+      html += p === currentPage
+        ? `<span class="active">${p}</span>`
+        : `<a href="#" data-page="${p}">${p}</a>`;
+    }
+
+    html += currentPage < totalPages
+      ? `<a href="#" data-page="${currentPage + 1}">Next →</a>`
+      : `<span style="opacity:.4;">Next →</span>`;
+
+    paginationEl.innerHTML = html;
+
+    paginationEl.querySelectorAll("a[data-page]").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentPage = parseInt(a.dataset.page, 10);
+        render();
+        document.querySelector(".doc-toolbar").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  }
+
   function sortKey(d) {
     const parts = d.id.split("-");
     const series = parseInt(parts[1], 10) || 0;
@@ -98,9 +178,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
   }
 
-  searchEl.addEventListener("input", render);
-  categoryEl.addEventListener("change", render);
-  yearEl.addEventListener("change", render);
+  function onFilterChange() {
+    currentPage = 1;
+    render();
+  }
+
+  searchEl.addEventListener("input", onFilterChange);
+  categoryEl.addEventListener("change", onFilterChange);
+  yearEl.addEventListener("change", onFilterChange);
 
   render();
 });
