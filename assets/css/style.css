@@ -465,8 +465,9 @@ p { margin: 0 0 1em; }
   .hamburger { display: flex; }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
   .search-toggle { display: none; }
+  .nav-actions .btn { display: none; }
   .nav-actions { gap: 10px; }
 }
 
