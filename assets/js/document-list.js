@@ -44,12 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const cat = categoryEl.value;
     const yr = yearEl.value;
 
-    const filtered = data.filter((d) => {
-      const matchesQ = !q || d.title.toLowerCase().includes(q) || d.number.toLowerCase().includes(q) || d.excerpt.toLowerCase().includes(q);
-      const matchesCat = !cat || cat === "All Categories" || d.category === cat;
-      const matchesYr = !yr || yr === "All Years" || d.series === yr;
-      return matchesQ && matchesCat && matchesYr;
-    });
+    const filtered = data
+      .filter((d) => {
+        const matchesQ = !q || d.title.toLowerCase().includes(q) || d.number.toLowerCase().includes(q) || d.excerpt.toLowerCase().includes(q);
+        const matchesCat = !cat || cat === "All Categories" || d.category === cat;
+        const matchesYr = !yr || yr === "All Years" || d.series === yr;
+        return matchesQ && matchesCat && matchesYr;
+      })
+      .sort((a, b) => sortKey(b) - sortKey(a));
 
     countEl.textContent = `Showing ${filtered.length} of ${data.length} ${label.toLowerCase()}${data.length === 1 ? "" : "s"}`;
 
@@ -79,6 +81,16 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>`
       )
       .join("");
+  }
+
+  function sortKey(d) {
+    const parts = d.id.split("-");
+    const series = parseInt(parts[1], 10) || 0;
+    const rest = parts.slice(2).join("-");
+    const m = rest.match(/^(\d+)([a-z]*)$/i);
+    const base = m ? parseInt(m[1], 10) : 0;
+    const suffix = m && m[2] ? 1 : 0;
+    return series * 10000 + base * 10 + suffix;
   }
 
   function formatDate(str) {
