@@ -64,50 +64,23 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (isOrdinance && paginationEl) {
-      const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+    let itemsToShow = filtered;
+    let totalPages = 1;
+
+    if (paginationEl) {
+      totalPages = Math.ceil(filtered.length / PAGE_SIZE);
       if (currentPage > totalPages) currentPage = totalPages;
       if (currentPage < 1) currentPage = 1;
 
       const start = (currentPage - 1) * PAGE_SIZE;
-      const pageItems = filtered.slice(start, start + PAGE_SIZE);
+      itemsToShow = filtered.slice(start, start + PAGE_SIZE);
 
-      countEl.textContent = `Showing ${start + 1}–${start + pageItems.length} of ${filtered.length} ${label.toLowerCase()}${filtered.length === 1 ? "" : "s"}`;
-
-      listEl.innerHTML = `
-      <div class="table-responsive">
-        <table class="doc-table">
-          <thead>
-            <tr>
-              <th>Ordinance No.</th>
-              <th>Title</th>
-              <th>Date Enacted</th>
-              <th>Document</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${pageItems
-              .map(
-                (d) => `
-            <tr>
-              <td class="doc-table-number">${d.number}</td>
-              <td><a href="${detailPage}?id=${d.id}">${d.title}</a></td>
-              <td class="doc-table-date">${d.dateApproved ? formatDate(d.dateApproved) : "Series " + d.series}</td>
-              <td class="doc-table-doc">${d.pdf ? `<a href="${d.pdf}" target="_blank" rel="noopener">View PDF ↗</a>` : `<a href="${detailPage}?id=${d.id}">View →</a>`}</td>
-            </tr>`
-              )
-              .join("")}
-          </tbody>
-        </table>
-      </div>`;
-
-      renderPagination(totalPages);
-      return;
+      countEl.textContent = `Showing ${start + 1}–${start + itemsToShow.length} of ${filtered.length} ${label.toLowerCase()}${filtered.length === 1 ? "" : "s"}`;
+    } else {
+      countEl.textContent = `Showing ${filtered.length} of ${data.length} ${label.toLowerCase()}${data.length === 1 ? "" : "s"}`;
     }
 
-    countEl.textContent = `Showing ${filtered.length} of ${data.length} ${label.toLowerCase()}${data.length === 1 ? "" : "s"}`;
-
-    listEl.innerHTML = filtered
+    listEl.innerHTML = itemsToShow
       .map(
         (d) => `
       <div class="doc-item">
@@ -128,6 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>`
       )
       .join("");
+
+    if (paginationEl) renderPagination(totalPages);
   }
 
   function renderPagination(totalPages) {
