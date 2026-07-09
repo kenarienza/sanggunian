@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="doc-meta">
             <span class="tag">${d.number}</span>
             <span>${d.category}</span>
-            <span>Approved ${formatDate(d.dateApproved)}</span>
+            <span>${d.dateApproved ? "Approved " + formatDate(d.dateApproved) : "Series " + d.series}</span>
             <span>${d.status}</span>
           </div>
           <h3><a href="${detailPage}?id=${d.id}">${d.title}</a></h3>

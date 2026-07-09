@@ -31,13 +31,30 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("doc-sidebar-series").textContent = "Series of " + doc.series;
   document.getElementById("doc-sidebar-category").textContent = doc.category;
   document.getElementById("doc-sidebar-author").textContent = doc.author;
-  document.getElementById("doc-sidebar-date").textContent = formatDate(doc.dateApproved);
+  document.getElementById("doc-sidebar-date").textContent = doc.dateApproved ? formatDate(doc.dateApproved) : "On file (exact date pending)";
   document.getElementById("doc-sidebar-status").textContent = doc.status;
 
-  document.getElementById("doc-body-content").innerHTML = doc.body.map((p) => `<p>${p}</p>`).join("");
+  const bodyEl = document.getElementById("doc-body-content");
+  if (doc.pdf) {
+    bodyEl.innerHTML = `
+      <p>${doc.body[0]}</p>
+      <div class="pdf-embed"><embed src="${doc.pdf}" type="application/pdf"></div>
+      <p><a href="${doc.pdf}" target="_blank" rel="noopener">Open the scanned copy in a new tab →</a></p>
+    `;
+  } else {
+    bodyEl.innerHTML = doc.body.map((p) => `<p>${p}</p>`).join("");
+  }
 
   const downloadLink = document.getElementById("doc-download");
-  if (downloadLink) downloadLink.setAttribute("download", doc.number.replace(/\s+/g, "_") + ".txt");
+  if (downloadLink) {
+    if (doc.pdf) {
+      downloadLink.href = doc.pdf;
+      downloadLink.setAttribute("download", doc.number.replace(/\s+/g, "_") + ".pdf");
+      downloadLink.target = "_blank";
+    } else {
+      downloadLink.setAttribute("download", doc.number.replace(/\s+/g, "_") + ".txt");
+    }
+  }
 
   // Related documents (same category, excluding current)
   const related = data.filter((d) => d.category === doc.category && d.id !== doc.id).slice(0, 3);
