@@ -161,7 +161,7 @@ p { margin: 0 0 1em; }
   display: flex;
   align-items: center;
   background: linear-gradient(120deg, rgba(15,22,18,.72), rgba(15,22,18,.55)),
-              url('../img/sbhall2.jpg') center / cover no-repeat;
+              url('../img/session.jpg') center / cover no-repeat;
   color: var(--white);
   overflow: hidden;
 }
@@ -183,7 +183,7 @@ p { margin: 0 0 1em; }
 /* Page (inner) hero */
 .page-hero {
   background: linear-gradient(120deg, rgba(15,22,18,.82), rgba(15,22,18,.72)),
-              url('../img/sbhall2.jpg') center / cover no-repeat;
+              url('../img/session.jpg') center / cover no-repeat;
   color: var(--white);
   padding: 90px 0 50px;
   text-align: center;
