@@ -111,18 +111,18 @@ p { margin: 0 0 1em; }
 .navbar .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   gap: 20px;
 }
 .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .brand-seal { width: 48px; height: 48px; flex-shrink: 0; object-fit: contain; border-radius: 50%; }
+.navbar .brand-seal { width: auto; height: 51px; border-radius: 0; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; white-space: nowrap; }
 .brand-text strong { font-size: 17px; font-weight: 700; color: var(--dark); white-space: nowrap; }
 .brand-text span { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--primary); font-weight: 600; white-space: nowrap; }
 
-.nav-links { display: flex; align-items: center; gap: 22px; flex-shrink: 1; }
+.nav-links { display: flex; align-items: center; gap: 22px; flex-shrink: 1; margin-left: auto; }
 .nav-links a {
   font-size: 14px; font-weight: 500; color: var(--text);
   padding: 8px 0; position: relative; white-space: nowrap;
