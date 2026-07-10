@@ -74,28 +74,28 @@ p { margin: 0 0 1em; }
 .topbar {
   background: var(--dark);
   color: #c7cbce;
-  font-size: 13px;
+  font-size: 9px;
 }
 .topbar .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   gap: 16px;
   flex-wrap: wrap;
 }
 .topbar-left { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .topbar-left span { display: inline-flex; align-items: center; gap: 6px; }
-.social-mini { display: flex; gap: 10px; }
+.social-mini { display: flex; gap: 8px; }
 .social-mini a {
-  width: 26px; height: 26px; border-radius: 50%;
+  width: 18px; height: 18px; border-radius: 50%;
   background: rgba(255,255,255,.08);
   display: flex; align-items: center; justify-content: center;
   transition: background .2s;
 }
 .social-mini a:hover { background: var(--primary); }
-.social-mini svg { width: 13px; height: 13px; fill: #fff; }
+.social-mini svg { width: 9px; height: 9px; fill: #fff; }
 .topbar-right { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; color: #c7cbce; }
 .topbar-right .icon-text { display: flex; align-items: center; gap: 6px; }
 .topbar-right svg { width: 14px; height: 14px; fill: var(--primary); }
@@ -117,7 +117,7 @@ p { margin: 0 0 1em; }
 }
 .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .brand-seal { width: 48px; height: 48px; flex-shrink: 0; object-fit: contain; border-radius: 50%; }
-.navbar .brand-seal { width: auto; height: 40px; border-radius: 0; }
+.navbar .brand-seal { width: auto; height: 48px; border-radius: 0; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; white-space: nowrap; }
 .brand-text strong { font-size: 17px; font-weight: 700; color: var(--dark); white-space: nowrap; }
 .brand-text span { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--primary); font-weight: 600; white-space: nowrap; }
@@ -479,7 +479,7 @@ p { margin: 0 0 1em; }
 @media (max-width: 860px) {
   .topbar { display: none; }
   .navbar .container { padding-top: 12px; padding-bottom: 12px; }
-  .navbar .brand-seal { height: 30px; }
+  .navbar .brand-seal { height: 47px; }
   .hero h1 { font-size: 34px; }
   .quick-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
