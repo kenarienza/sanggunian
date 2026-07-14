@@ -116,14 +116,14 @@ p { margin: 0 0 1em; }
   gap: 20px;
 }
 .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.brand-seal { width: auto; height: 48px; flex-shrink: 0; object-fit: contain; }
+.brand-seal { width: auto; height: 48px; flex-shrink: 0; object-fit: contain; margin-left: -6px; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; white-space: nowrap; }
 .brand-text strong { font-size: 17px; font-weight: 700; color: var(--dark); white-space: nowrap; }
 .brand-text span { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--primary); font-weight: 600; white-space: nowrap; }
 
 .navbar .brand-title-block { display: flex; flex-direction: column; line-height: 1.2; white-space: nowrap; font-family: "Cardo", serif; color: #002d00; }
 .navbar .brand-eyebrow { font-size: 10px; letter-spacing: .08em; font-weight: 400; }
-.navbar .brand-title { font-size: 18px; font-weight: 700; letter-spacing: .01em; padding-bottom: 2px; border-bottom: 2px solid #002d00; }
+.navbar .brand-title { font-size: 16px; font-weight: 700; letter-spacing: .01em; padding-bottom: 2px; border-bottom: 2px solid #002d00; }
 .navbar .brand-subtitle { font-size: 12px; letter-spacing: .18em; font-weight: 700; margin-top: 2px; }
 
 .nav-links { display: flex; align-items: center; gap: 22px; flex-shrink: 1; margin-left: auto; }
@@ -485,7 +485,7 @@ p { margin: 0 0 1em; }
   .navbar .container { padding-top: 12px; padding-bottom: 12px; }
   .navbar .brand-seal { height: 41px; }
   .navbar .brand-eyebrow { font-size: 8px; }
-  .navbar .brand-title { font-size: 14px; }
+  .navbar .brand-title { font-size: 12px; }
   .navbar .brand-subtitle { font-size: 9px; }
   .hero h1 { font-size: 34px; }
   .quick-grid { grid-template-columns: repeat(2, 1fr); }
@@ -498,7 +498,7 @@ p { margin: 0 0 1em; }
   .navbar .brand-seal { height: 34px; }
   .navbar .brand-title-block { white-space: normal; flex: 1 1 auto; min-width: 0; }
   .navbar .brand-eyebrow { font-size: 7px; letter-spacing: .04em; }
-  .navbar .brand-title { font-size: 11px; line-height: 1.2; white-space: normal; border-bottom-width: 1px; }
+  .navbar .brand-title { font-size: 10px; line-height: 1.2; white-space: normal; border-bottom-width: 1px; }
   .navbar .brand-subtitle { font-size: 7px; letter-spacing: .08em; }
 }
 
