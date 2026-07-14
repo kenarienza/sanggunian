@@ -115,12 +115,16 @@ p { margin: 0 0 1em; }
   padding-bottom: 6px;
   gap: 20px;
 }
-.brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.brand-seal { width: 48px; height: 48px; flex-shrink: 0; object-fit: contain; border-radius: 50%; }
-.navbar .brand-seal { width: auto; height: 48px; border-radius: 0; }
+.brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.brand-seal { width: auto; height: 48px; flex-shrink: 0; object-fit: contain; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; white-space: nowrap; }
 .brand-text strong { font-size: 17px; font-weight: 700; color: var(--dark); white-space: nowrap; }
 .brand-text span { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--primary); font-weight: 600; white-space: nowrap; }
+
+.navbar .brand-title-block { display: flex; flex-direction: column; line-height: 1.2; white-space: nowrap; font-family: "Cardo", serif; color: #002d00; }
+.navbar .brand-eyebrow { font-size: 10px; letter-spacing: .08em; font-weight: 400; }
+.navbar .brand-title { font-size: 18px; font-weight: 700; letter-spacing: .01em; padding-bottom: 2px; border-bottom: 2px solid #002d00; }
+.navbar .brand-subtitle { font-size: 12px; letter-spacing: .18em; font-weight: 700; margin-top: 2px; }
 
 .nav-links { display: flex; align-items: center; gap: 22px; flex-shrink: 1; margin-left: auto; }
 .nav-links a {
@@ -480,10 +484,17 @@ p { margin: 0 0 1em; }
   .topbar { display: none; }
   .navbar .container { padding-top: 12px; padding-bottom: 12px; }
   .navbar .brand-seal { height: 41px; }
+  .navbar .brand-eyebrow { font-size: 8px; }
+  .navbar .brand-title { font-size: 14px; }
+  .navbar .brand-subtitle { font-size: 9px; }
   .hero h1 { font-size: 34px; }
   .quick-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-newsletter .container { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 400px) {
+  .navbar .brand-title-block { display: none; }
 }
 
 @media (max-width: 600px) {
